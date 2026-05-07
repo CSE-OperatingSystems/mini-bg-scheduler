@@ -88,11 +88,10 @@ The accompanying academic report analyzes:
 │   ├── workload_b.csv       # Mixed Short/Long Jobs
 │   └── workload_c.csv       # Priority-Sensitive Workload
 ├── logs/                    # Execution logs and performance outputs
-│   ├── run_fifo.log
-│   ├── run_sjf.log
-│   ├── run_priority.log
-│   └── run_aging.log
-└── scheduler                # Main compiled executable
+    ├── run_fifo.log
+    ├── run_sjf.log
+    ├── run_priority.log
+    └── run_aging.log
 ```
 
 *This project is part of the undergraduate curriculum at the Faculty of Computer Science and Engineering, HCMUT.*
