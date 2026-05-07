@@ -1,6 +1,6 @@
 [time=1] Worker 0 starts Job 2 seller=E runtime=15 priority=2
-[time=1] Worker 3 starts Job 3 seller=A runtime=18 priority=3
-[time=1] Worker 2 starts Job 1 seller=E runtime=20 priority=2
+[time=1] Worker 2 starts Job 3 seller=A runtime=18 priority=3
+[time=1] Worker 3 starts Job 1 seller=E runtime=20 priority=2
 [time=2] Worker 1 starts Job 4 seller=A runtime=2 priority=3
 [time=4] Worker 1 finishes Job 4
 [time=4] Worker 1 starts Job 6 seller=E runtime=1 priority=3
@@ -30,13 +30,13 @@
 [time=17] Worker 1 starts Job 15 seller=A runtime=2 priority=2
 [time=18] Worker 0 finishes Job 14
 [time=18] Worker 0 starts Job 17 seller=D runtime=2 priority=2
-[time=19] Worker 3 finishes Job 3
-[time=19] Worker 3 starts Job 18 seller=D runtime=2 priority=3
+[time=19] Worker 2 finishes Job 3
+[time=19] Worker 2 starts Job 18 seller=D runtime=2 priority=3
 [time=19] Worker 1 finishes Job 15
 [time=19] Worker 1 starts Job 19 seller=D runtime=2 priority=3
 [time=20] Worker 0 finishes Job 17
-[time=21] Worker 3 finishes Job 18
-[time=21] Worker 2 finishes Job 1
+[time=21] Worker 3 finishes Job 1
+[time=21] Worker 2 finishes Job 18
 [time=21] Worker 1 finishes Job 19
 
 ============================================
