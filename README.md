@@ -4,9 +4,9 @@ This project was developed by **Group Eternals** for **Lab 4: Operating Systems 
 
 ## 👥 Team Members
 
-* **Huỳnh Hoàng Anh** - Core Data Structures & Scheduling Algorithms
-* **Huỳnh Tấn Tiến** - Worker Pool, Synchronization & Parser
-* **Phạm Minh Đức** - Metrics Calculation, Evaluation & Report
+* **Huynh Hoang Anh** - Core Data Structures & Scheduling Algorithms
+* **Huynh Tan Tien** - Worker Pool, Synchronization & Parser
+* **Pham Minh Duc** - Metrics Calculation, Evaluation & Report
 
 ## 📋 Project Overview
 
