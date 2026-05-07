@@ -4,6 +4,7 @@
 // Assigns a selected job to an available worker
 void dispatcher_assign_job(worker_t worker, job_t* job) {
     (void)worker;
+    
     if (job != NULL) {
         // Change status to RUNNING to remove it from the Ready Queue's consideration
         job->status = JOB_RUNNING;

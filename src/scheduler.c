@@ -1,6 +1,7 @@
 #include "../include/scheduler.h"
 #include <stddef.h>
 
+// Initialize the ready queue
 job_t* job_queue[MAX_JOBS];
 int job_count = 0;
 
