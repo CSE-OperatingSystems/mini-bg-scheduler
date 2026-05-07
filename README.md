@@ -1,49 +1,92 @@
 # Mini Background Job Scheduler
 
-Dự án Hệ điều hành mô phỏng một hệ thống lập lịch công việc chạy nền bằng C và POSIX Threads (`pthread`).
+This project was developed by **Group Eternals** for **Lab 4: Operating Systems (CO2018)** - Semester **HK252** at **Ho Chi Minh City University of Technology (HCMUT)**. The objective is to design and simulate a multi-threaded background job scheduling system, mapping classical CPU scheduling algorithms to real-world backend architectures.
 
-## Thành viên nhóm
-1. Huỳnh Hoàng Anh - Core Logic, Schedulers
-2. [Tên Tiến] - Worker Pool, Synchronization
-3. [Tên Đức] - Metrics, Evaluation & Report
+## 👥 Team Members
 
-## Hướng dẫn biên dịch (Build)
-Sử dụng `gcc` với các cờ tối ưu hóa và cảnh báo theo yêu cầu:
+* **Huỳnh Hoàng Anh** - Core Data Structures & Scheduling Algorithms
+* **Huỳnh Tấn Tiến** - Worker Pool, Synchronization & Parser
+* **Phạm Minh Đức** - Metrics Calculation, Evaluation & Report
+
+## 📋 Project Overview
+
+The project implements a multi-threaded worker pool in C using POSIX Threads (`pthread`). It compares three distinct scheduling policies to evaluate their performance, scalability, and system trade-offs:
+* **FIFO (First-In-First-Out):** A baseline scheduling policy where jobs are assigned strictly in their order of arrival.
+* **SJF (Shortest Job First):** Prioritizes jobs with the shortest estimated runtime to reduce average waiting time and mitigate the convoy effect.
+* **Priority Scheduling:** Assigns jobs based on priority levels, introducing preemption concepts and the risk of starvation for low-priority tasks.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* **Operating System:** Linux (Ubuntu or WSL recommended).
+* **Compiler:** `gcc` with `-O2` and `-pthread` flags.
+* **Tools:** `make`.
+
+### 1. Compilation
+
+Use the provided `Makefile` to compile the source code:
 ```bash
-gcc -Wall -Wextra -O2 -pthread src/*.c -I./include -o scheduler
+make
 ```
-*(Hoặc chỉ cần gõ `make` nếu bạn đã thiết lập file Makefile).*
+This generates the main executable: `scheduler`.
 
-## Cách chạy (Usage)
-Cú pháp chạy chương trình:
+### 2. Automated Testing
+
+To run the automated experiment scripts across all scheduling policies and workloads:
 ```bash
-./scheduler <đường_dẫn_file_csv> <policy> <số_lượng_worker>
+make run_all
 ```
+Results and performance metrics will be automatically saved into the `logs/` directory.
 
-**Ví dụ:**
+### 3. Manual Execution
+
 ```bash
-./scheduler workloads/workload_a.csv fifo 4
-./scheduler workloads/workload_b.csv sjf 4
-./scheduler workloads/workload_c.csv priority 4
+./scheduler <csv_file_path> <policy> <number_of_workers>
+```
+*Example:* `./scheduler workloads/workload_a.csv fifo 4`
+
+## 📊 Workloads & Methodology
+
+The system is evaluated against three standardized workloads generated via the `workload_gen.exe` tool:
+* **Workload A (Balanced):** Similar runtimes and mixed priorities to test baseline stability and evaluate FIFO.
+* **Workload B (Mixed Short/Long):** Forces the system to exhibit the *Convoy Effect* to demonstrate SJF's superiority in handling execution bottlenecks.
+* **Workload C (Priority-Sensitive):** Late-arriving high-priority jobs to test priority allocation and evaluate *Starvation* risks.
+
+## 📄 Academic Report
+
+The accompanying academic report analyzes:
+* **Scheduling Metrics:** Throughput, Average Waiting Time, Turnaround Time, and Worker Utilization.
+* **Trade-offs:** Analyzing why no single scheduler fits all workloads.
+* **OS Concept Mapping:** How OS-level ready queues, mutexes, condition variables, and dispatchers translate to backend CI/CD or cloud job queues.
+
+## 📂 Directory Structure
+
+```text
+.
+├── Makefile                 # Build system and automated test scripts
+├── README.md                # Project overview and execution guide
+├── include/                 # Header files
+│   ├── dispatcher.h
+│   ├── job.h
+│   ├── scheduler.h
+│   └── worker.h
+├── src/                     # C source code implementation
+│   ├── dispatcher.c         # Job assignment logic
+│   ├── main.c               # Parser, initialization, and metric calculation
+│   ├── scheduler.c          # Scheduling policies (FIFO, SJF, Priority)
+│   ├── worker.c             # Multi-threading and synchronization (Mutex/CondVars)
+│   └── workload_gen.c       # Source code for generating workloads
+├── workloads/               # Test datasets
+│   ├── workload_a.csv       # Balanced Workload
+│   ├── workload_b.csv       # Mixed Short/Long Jobs
+│   └── workload_c.csv       # Priority-Sensitive Workload
+├── logs/                    # Execution logs and performance outputs
+│   ├── run_fifo.log
+│   ├── run_priority.log
+│   └── run_sjf.log
+├── workload_gen.exe         # Executable for generating datasets
+└── scheduler                # Main compiled executable
 ```
 
-## Các chiến lược lập lịch (Supported Policies)
-- `fifo`: First-In-First-Out / First-Come-First-Serve
-- `sjf`: Shortest Job First
-- `priority`: Priority Scheduling
-
-## Cách tạo workload mẫu
-
-Dự án này đi kèm với một công cụ nhỏ viết bằng C (`src/workload_gen.c`), đi kèm với file thực thi đã được biên dịch sẵn từ file src/generate_workloads.c (`workload_gen.exe`) để tự động tạo ra các file CSV chứa dữ liệu công việc (jobs) theo đúng định dạng yêu cầu của bài tập. Các file này được thiết kế để kiểm thử các kịch bản lập lịch khác nhau. Để tạo file chứa dữ liệu mới, hãy chạy file `workload_gen.exe`:
-```bash
-./workload_gen.exe
-```
-
-### Giải thích các file dữ liệu đầu ra
-Chương trình sẽ tự động tạo ra 3 file CSV trong thư mục `workloads`. Mỗi file tuân thủ cấu trúc `job_id, seller_id, arrival_time, estimated_runtime, priority, job_type` và phục vụ một mục đích kiểm thử cụ thể:  
-
-`workload_a.csv` (Balanced Workload): Các công việc có thời gian chạy (runtime) tương đồng nhau và mức độ ưu tiên được trộn lẫn. Workload này dùng để kiểm tra xem một chính sách đơn giản như FIFO có đủ đáp ứng nhu cầu hay không.  
-
-`workload_b.csv` (Mixed Short and Long Jobs): Chứa một vài công việc có thời gian chạy rất dài xuất hiện ngay từ đầu, theo sau là hàng loạt các công việc rất ngắn. Workload này được thiết kế để ép hệ thống bộc lộ "hiệu ứng đoàn tàu" (convoy effect) khi chạy bằng FIFO, qua đó thấy được sự ưu việt của SJF.  
-
-`workload_c.csv` (Priority-Sensitive Workload): Các công việc có độ ưu tiên thấp sẽ đến trước, sau đó là một đợt các công việc có độ ưu tiên cao (số nhỏ hơn) đổ về sau. Workload này dùng để quan sát xem Priority Scheduling có cải thiện được thời gian phản hồi cho các tác vụ quan trọng không, và liệu nó có gây ra tình trạng "chết đói" (starvation) cho các công việc cũ hay không.
+*This project is part of the undergraduate curriculum at the Faculty of Computer Science and Engineering, HCMUT.*
