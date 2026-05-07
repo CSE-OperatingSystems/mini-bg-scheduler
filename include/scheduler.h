@@ -13,10 +13,6 @@ typedef enum {
 } policy_t;
 
 #define MAX_JOBS 1000
-
-extern job_t* job_queue[MAX_JOBS];
-extern int job_count;
-
 #define NUM_QUEUES 3
 #define MAX_JOBS_PER_QUEUE 1000
 

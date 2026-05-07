@@ -27,23 +27,23 @@ clean:
 # Type: make run_fifo
 run_fifo: $(TARGET)
 	./$(TARGET) $(WORKLOAD_DIR)/workload_a.csv fifo 4 > $(LOG_DIR)/run_fifo.log
-	@echo "FIFO execution completed. Check results in logs/run_fifo.log" [cite: 76, 206]
+	@echo "FIFO execution completed. Check results in logs/run_fifo.log" 
 
 # Type: make run_sjf
 run_sjf: $(TARGET)
 	./$(TARGET) $(WORKLOAD_DIR)/workload_b.csv sjf 4 > $(LOG_DIR)/run_sjf.log
-	@echo "SJF execution completed. Check results in logs/run_sjf.log" [cite: 77, 207]
+	@echo "SJF execution completed. Check results in logs/run_sjf.log" 
 
 # Type: make run_priority
 run_priority: $(TARGET)
 	./$(TARGET) $(WORKLOAD_DIR)/workload_c.csv priority 4 > $(LOG_DIR)/run_priority.log
-	@echo "Priority execution completed. Check results in logs/run_priority.log" [cite: 78, 208]
+	@echo "Priority execution completed. Check results in logs/run_priority.log" 
 
 # Type: make run_aging
-# Purpose: Test starvation reduction using Aging Priority [cite: 175]
+# Purpose: Test starvation reduction using Aging Priority
 run_aging: $(TARGET)
 	./$(TARGET) $(WORKLOAD_DIR)/workload_c.csv aging 4 > $(LOG_DIR)/run_aging.log
-	@echo "Aging Priority execution completed. Check results in logs/run_aging.log" [cite: 175-176]
+	@echo "Aging Priority execution completed. Check results in logs/run_aging.log" 
 
 # Type: make run_all (Runs all 4 algorithms sequentially)
 run_all: run_fifo run_sjf run_priority run_aging
