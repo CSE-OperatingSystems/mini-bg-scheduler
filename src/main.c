@@ -54,7 +54,7 @@ int load_jobs(const char* filename, job_t* all_jobs) {
 
 int main(int argc, char* argv[]) {
     if (argc != 4) {
-        printf("Usage: %s <csv_file> <policy(fifo/sjf/priority)> <num_workers>\n", argv[0]);
+        printf("Usage: %s <csv_file> <policy(fifo/sjf/aging/priority)> <num_workers>\n", argv[0]);
         return 1;
     }
 
@@ -65,8 +65,9 @@ int main(int argc, char* argv[]) {
     if (strcmp(argv[2], "fifo") == 0) current_policy = POLICY_FIFO;
     else if (strcmp(argv[2], "sjf") == 0) current_policy = POLICY_SJF;
     else if (strcmp(argv[2], "priority") == 0) current_policy = POLICY_PRIORITY;
+    else if (strcmp(argv[2], "aging") == 0) current_policy = POLICY_AGING_PRIORITY;
     else {
-        printf("Invalid policy. Use fifo, sjf, or priority.\n");
+        printf("Invalid policy. Use fifo, sjf, aging, or priority.\n");
         return 1;
     }
 
