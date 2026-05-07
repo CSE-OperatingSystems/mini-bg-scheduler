@@ -102,20 +102,21 @@ int main(int argc, char* argv[]) {
         pthread_join(workers[i].thread, NULL);
     }
 
-    // 6. Calculate & Print Metrics
+    // CALCULATE & PRINT METRICS ---
     int total_sim_time = get_current_sim_time();
-    int total_waiting_time = 0;
-    int total_turnaround_time = 0;
+    long long total_waiting_time = 0;
+    long long total_turnaround_time = 0;
     int starvation_risk_count = 0;
-    
+    int total_busy_time = 0;
+
     for (int i = 0; i < total_jobs; i++) {
         int wait_time = all_jobs[i].start_time - all_jobs[i].arrival_time;
         int turnaround_time = all_jobs[i].finish_time - all_jobs[i].arrival_time;
         
         total_waiting_time += wait_time;
         total_turnaround_time += turnaround_time;
+        total_busy_time += all_jobs[i].estimated_runtime;
 
-        // Check starvation: if waiting time > 2 * estimated runtime
         if (wait_time > 2 * all_jobs[i].estimated_runtime) {
             starvation_risk_count++;
         }
@@ -124,22 +125,20 @@ int main(int argc, char* argv[]) {
     double avg_waiting = (double)total_waiting_time / total_jobs;
     double avg_turnaround = (double)total_turnaround_time / total_jobs;
     double throughput = (double)total_jobs / total_sim_time;
-    
-    // Utilization logic: Sum of all job runtimes / (workers * total_time)
-    int total_busy_time = 0;
-    for(int i = 0; i < total_jobs; i++) total_busy_time += all_jobs[i].estimated_runtime;
     double utilization = ((double)total_busy_time / (num_workers * total_sim_time)) * 100.0;
 
-    printf("\n--- Simulation Results ---\n");
-    printf("Policy: %s\n", argv[2]);
-    printf("Workers: %d\n", num_workers);
-    printf("Total jobs: %d\n", total_jobs);
-    printf("Total simulation time: %d\n", total_sim_time);
-    printf("Average waiting time: %.2f\n", avg_waiting);
-    printf("Average turnaround time: %.2f\n", avg_turnaround);
-    printf("Throughput: %.3f jobs/unit time\n", throughput);
-    printf("Worker utilization: %.2f%%\n", utilization);
-    printf("Starvation-risk jobs: %d\n", starvation_risk_count);
+    printf("\n============================================\n");
+    printf("   FINAL PERFORMANCE SUMMARY (HCMUT - OS)\n");
+    printf("============================================\n");
+    printf("Policy: %-10s | Workers: %d\n", argv[2], num_workers);
+    printf("Total Jobs: %-6d | Sim Time: %d\n", total_jobs, total_sim_time);
+    printf("--------------------------------------------\n");
+    printf("Average Waiting Time:     %.2f units\n", avg_waiting);
+    printf("Average Turnaround Time:  %.2f units\n", avg_turnaround);
+    printf("System Throughput:        %.3f jobs/unit\n", throughput);
+    printf("Worker Utilization:       %.2f%%\n", utilization);
+    printf("Starvation-risk Jobs:     %d\n", starvation_risk_count);
+    printf("============================================\n");
 
     return 0;
 }
