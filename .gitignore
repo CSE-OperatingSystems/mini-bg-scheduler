@@ -1,0 +1,13 @@
+# Compiled Executables
+*.exe
+*.o
+scheduler
+workload_gen
+
+# Logs and Data
+logs/*.log
+!logs/.gitkeep
+
+# OS specific files
+.DS_Store
+Thumbs.db
