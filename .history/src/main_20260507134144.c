@@ -33,10 +33,7 @@ int load_jobs(const char* filename, job_t* all_jobs) {
     int count = 0;
     
     // Skip header row
-    if (fgets(line, sizeof(line), file) == NULL) {
-        fclose(file);
-        return 0; 
-    }
+    fgets(line, sizeof(line), file); 
 
     while (fgets(line, sizeof(line), file)) {
         job_t* j = &all_jobs[count];

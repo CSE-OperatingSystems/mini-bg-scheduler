@@ -3,7 +3,7 @@
 
 #include <pthread.h>
 
-// Structure to store worker information
+// Cấu trúc thông tin worker 
 typedef struct {
     int worker_id;
     pthread_t thread;
