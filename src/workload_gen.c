@@ -5,7 +5,6 @@
 const char* SELLERS[] = {"A", "B", "C", "D", "E"};
 const char* JOB_TYPES[] = {"resize", "thumbnail", "compress", "policy_check", "metadata_update"};
 
-// Helper to get random ranges
 int rand_range(int min, int max) {
     return min + rand() % (max - min + 1);
 }
