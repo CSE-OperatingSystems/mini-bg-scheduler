@@ -69,7 +69,7 @@ void generate_workload_b(const char* filename, int num_jobs) {
 }
 
 void generate_workload_c(const char* filename, int num_jobs) {
-    // Workload C: Priority-Sensitive - High priority jobs arrive later than low priority ones[cite: 72, 73].
+    // Workload C: Priority-Sensitive - High priority jobs arrive later than low priority ones.
     FILE *file = fopen(filename, "w");
     if (!file) return;
 
@@ -83,10 +83,10 @@ void generate_workload_c(const char* filename, int num_jobs) {
         
         int priority;
         if (i <= num_jobs / 2) {
-            // First half arrive earlier but have low priority (higher number) [cite: 64]
+            // First half arrive earlier but have low priority (higher number)
             priority = rand_range(4, 5);
         } else {
-            // Second half arrive later but have high priority (lower number) [cite: 64]
+            // Second half arrive later but have high priority (lower number)
             priority = rand_range(1, 2);
         }
         
@@ -105,9 +105,9 @@ int main() {
 
     int num_jobs = 20;
 
-    generate_workload_a("workload_a.csv", num_jobs);
-    generate_workload_b("workload_b.csv", num_jobs);
-    generate_workload_c("workload_c.csv", num_jobs);
+    generate_workload_a("../workloads/workload_a.csv", num_jobs);
+    generate_workload_b("../workloads/workload_b.csv", num_jobs);
+    generate_workload_c("../workloads/workload_c.csv", num_jobs);
 
     printf("All workload CSV files generated successfully!\n");
     return 0;
